@@ -5,7 +5,7 @@ import 'route/router_set.dart';
 void main() {
   runApp(
     MaterialApp.router(
-      routerConfig: RouterSet,
+      routerConfig: RouterSet().goRouterSet,
     ),
   );
 }
