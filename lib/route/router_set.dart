@@ -2,11 +2,11 @@ import 'package:go_router/go_router.dart';
 
 import '../model/number_item.dart';
 import '../screen/bottom_nav_screen.dart';
-import '../screen/button/button_click_screen.dart';
-import '../screen/button/button_screen.dart';
+import '../screen/basic/basic_clicked_screen.dart';
+import '../screen/basic/basic_example_screen.dart';
 import '../screen/number/number_detail_screen.dart';
 import '../screen/number/number_tab_manage_screen.dart';
-import '../screen/setting/setting_screen.dart';
+import '../screen/redirect/rediret_screen.dart';
 import 'page_builders.dart';
 
 List<NumberItem> numberItems = List.generate(
@@ -21,13 +21,16 @@ late final GoRouter RouterSet = GoRouter(
     ),
     GoRoute(
       path: '/number',
-      pageBuilder: (context, state) => buildPageWithDefaultTransition<void>(
+      redirect: (_, __) => '/number/jjack',
+    ),
+    GoRoute(
+      path: '/number/:kind(jjack|hol|all)',
+      pageBuilder: (context, state) => buildPageWithDefaultTransition(
         context: context,
         state: state,
         child: BottomNavScreen(
-          selectedTab: BottomNavTab.number,
-          child: NumberTabManageScreen(),
-        ),
+            selectedTab: BottomNavTab.number,
+            child: NumberTabManageScreen(kind: state.params['kind']!)),
       ),
       routes: [
         GoRoute(
@@ -36,41 +39,45 @@ late final GoRouter RouterSet = GoRouter(
             final int numberId = int.parse(state.params['numberId'].toString());
             return NumberDetailScreen(numberItem: numberItems[numberId]);
           },
-        ),
+        )
       ],
     ),
     GoRoute(
-      path: '/button',
+      path: '/basic',
       pageBuilder: (context, state) => buildPageWithDefaultTransition<void>(
         context: context,
         state: state,
         child: BottomNavScreen(
-          selectedTab: BottomNavTab.button,
-          child: ButtonScreen(),
+          selectedTab: BottomNavTab.basic,
+          child: BasicExampleScreen(),
         ),
       ),
       routes: [
         GoRoute(
           path: ':kind(first|second|third)',
           builder: (contexst, state) =>
-              ButtonClickScreen(kind: state.params['kind']!),
+              BasicClickedScreen(kind: state.params['kind']!),
         ),
       ],
     ),
     GoRoute(
-      path: '/setting',
+      path: '/redirect',
       pageBuilder: (context, state) => buildPageWithDefaultTransition<void>(
         context: context,
         state: state,
         child: BottomNavScreen(
-          selectedTab: BottomNavTab.setting,
-          child: SettingScreen(),
+          selectedTab: BottomNavTab.redirect,
+          child: RedirectScreen(),
         ),
       ),
     ),
     GoRoute(
       path: '/goSecond',
-      redirect: (_, __) => '/button/second',
+      redirect: (_, __) => '/basic/second',
+    ),
+    GoRoute(
+      path: '/goNumber0',
+      redirect: (_, __) => '/number/all/0',
     ),
   ],
 );

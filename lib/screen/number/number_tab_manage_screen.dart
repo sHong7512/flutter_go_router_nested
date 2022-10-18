@@ -9,10 +9,10 @@ import 'numbers_screen.dart';
 class NumberTabManageScreen extends StatefulWidget {
   NumberTabManageScreen({
     Key? key,
-    // required this.kind,
+    required this.kind,
   }) : super(key: key);
 
-  // final String kind;
+  final String kind;
 
   @override
   State<NumberTabManageScreen> createState() => _NumberTabManageScreenState();
@@ -28,23 +28,6 @@ class _NumberTabManageScreenState extends State<NumberTabManageScreen>
     super.initState();
   }
 
-  // @override
-  // void didUpdateWidget(NumberTabManageScreen oldWidget) {
-  //   super.didUpdateWidget(oldWidget);
-  //
-  //   switch (widget.kind) {
-  //     case 'jjack':
-  //       _tabController.index = 0;
-  //       break;
-  //     case 'hol':
-  //       _tabController.index = 1;
-  //       break;
-  //     case 'all':
-  //       _tabController.index = 2;
-  //       break;
-  //   }
-  // }
-
   @override
   void dispose() {
     _tabController.dispose();
@@ -53,12 +36,13 @@ class _NumberTabManageScreenState extends State<NumberTabManageScreen>
 
   @override
   Widget build(BuildContext context) {
+    _checkKind();
     return Scaffold(
       appBar: AppBar(
-        title: Text('Tab Manage Screen'),
+        title: Text('Number Tab Screen'),
         bottom: TabBar(
           controller: _tabController,
-          // onTap: _handleTabTapped,
+          onTap: _handleTabTapped,
           tabs: const <Tab>[
             Tab(
               text: '짝수',
@@ -104,20 +88,36 @@ class _NumberTabManageScreenState extends State<NumberTabManageScreen>
     );
   }
 
-  // void _handleTabTapped(int index) {
-  //   switch (index) {
-  //     case 0:
-  //       context.go('/books/jjack');
-  //       break;
-  //     case 1:
-  //       context.go('/number/hol');
-  //       break;
-  //     case 2:
-  //       context.go('/books/all');
-  //       break;
-  //     default:
-  //       log('No Exist Index Error!');
-  //       break;
-  //   }
-  // }
+  _handleTabTapped(int index) {
+    switch (index) {
+      case 0:
+        context.go('/number/jjack');
+        break;
+      case 1:
+        context.go('/number/hol');
+        break;
+      case 2:
+        context.go('/number/all');
+        break;
+      default:
+        log('No Exist Index Error!');
+        break;
+    }
+  }
+
+  _checkKind(){
+    print('kind : ${widget.kind}');
+
+    switch (widget.kind) {
+      case 'jjack':
+        _tabController.index = 0;
+        break;
+      case 'hol':
+        _tabController.index = 1;
+        break;
+      case 'all':
+        _tabController.index = 2;
+        break;
+    }
+  }
 }

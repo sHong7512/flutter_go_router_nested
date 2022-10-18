@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../model/number_item.dart';
@@ -20,7 +22,7 @@ class NumbersScreen extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: ElevatedButton(
         onPressed: () {
-          GoRouter.of(context).push('/number/${numberItem.id}');
+          GoRouter.of(context).go('/number/all/${numberItem.id}');
         },
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,

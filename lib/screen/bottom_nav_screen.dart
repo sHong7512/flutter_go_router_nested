@@ -4,8 +4,8 @@ import 'package:go_router/go_router.dart';
 
 enum BottomNavTab {
   number,
-  button,
-  setting,
+  basic,
+  redirect,
 }
 
 class BottomNavScreen extends StatelessWidget {
@@ -29,11 +29,11 @@ class BottomNavScreen extends StatelessWidget {
             case BottomNavTab.number:
               context.go('/number');
               break;
-            case BottomNavTab.button:
-              context.go('/button');
+            case BottomNavTab.basic:
+              context.go('/basic');
               break;
-            case BottomNavTab.setting:
-              context.go('/setting');
+            case BottomNavTab.redirect:
+              context.go('/redirect');
               break;
           }
         },
@@ -43,11 +43,11 @@ class BottomNavScreen extends StatelessWidget {
             icon: Icons.tab,
           ),
           AdaptiveScaffoldDestination(
-            title: 'Button',
+            title: 'Basic',
             icon: Icons.text_snippet_rounded,
           ),
           AdaptiveScaffoldDestination(
-            title: 'Setting',
+            title: 'Redirect',
             icon: Icons.settings,
           ),
         ],
